@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Search App</title>
+    <link rel="stylesheet" href="style.css" />
+</head>  
+<body>
+    <header class="header">
+        <h1>Job Search App</h1>
+        <span id="server-label" class="server-label">Checking server .....</span>
+    </header>
+
+    <form id="search-form" class="bar">
+        <input id="query" type="text" placeholder="job role or location (e.g., software engineering remote)" required />
+        <input id="country" type="text" value="us" maxlength="2" class="country-input" title="2-letter country code" />
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="bar">
+        <input id="filter" type="Search" placeholder="Filter loaded jobs by title, company, or location.." />
+        <select id="remote-filter">
+            <option value="all">All locations</option>
+            <option value="remote">Remote only</option>
+        </select>
+        <select id="sort">
+            <option value="default">Sort: Default</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="company">Company (A-Z)</option>
+            <option value="newest">Newest first</option>
+        </select>
+    </div>
+
+    <div id="msg" class="msg"></div>
+    <div id="grid" class="grid"></div>
+
+    <script src="app.js"></script>
+</body>  
+</html>
