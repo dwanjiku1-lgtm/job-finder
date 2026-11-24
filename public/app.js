@@ -115,5 +115,3 @@ fetch('/health')
     }
    })
    .catch(() => {});
-
-   
