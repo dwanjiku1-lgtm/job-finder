@@ -2,39 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Search App</title>
-    <link rel="stylesheet" href="styles.css" />
-</head>  
+    <meta name="viewport" content ="width=device-width, initial-scale=1" />
+    <title>JobFinder</title>
+    <link rel="stylesheet" href="style.css" />
+</head>   
 <body>
-    <header class="header">
-        <h1>Job Search App</h1>
-        <span id="server-label" class="server-label">Checking server .....</span>
+    <header class="hero">
+        <h1>Job<span>Finder</span></h1>
+        <p>Search real job listing from aroung the world.</p>
+        <form id="searchForm" class="search">
+            <input id="queryInput" type="text" placeholder="e.g. developer in Nairobi" required />
+            <button type="submit">Search</button>
+        </form>
     </header>
 
-    <form id="search-form" class="bar">
-        <input id="query" type="text" placeholder="job role or location (e.g., software engineering remote)" required />
-        <input id="country" type="text" value="us" maxlength="2" class="country-input" title="2-letter country code" />
-        <button type="submit">Search</button>
-    </form>
+    <main>
+        <section class="controls">
+            <select id ="typeFilter" aria-label="Job type">
+                <option value="">All job type</option>
+                <option value="full">Full-time</option>
+                <option value="part">part-time</option>
+                <option value="contract">contract</option>
+                <option value="intern">Internship</option>
+            </select>  
+            
+            <select id ="sortSelect" arial-label="Sort by">
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+                <option value="company">Company A-Z</option>
+            </select>
 
-    <div class="bar">
-        <input id="filter" type="Search" placeholder="Filter loaded jobs by title, company, or location.." />
-        <select id="remote-filter">
-            <option value="all">All locations</option>
-            <option value="remote">Remote only</option>
-        </select>
-        <select id="sort">
-            <option value="default">Sort: Default</option>
-            <option value="title">Title (A-Z)</option>
-            <option value="company">Company (A-Z)</option>
-            <option value="newest">Newest first</option>
-        </select>
-    </div>
-
-    <div id="msg" class="msg"></div>
-    <div id="grid" class="grid"></div>
-
-    <script src="app.js"></script>
-</body>  
+            <label class="check">
+                <input type="checkbox" id="remoteOnly" /> Remote only
+            </label>
+    </main>
+</body> 
 </html>
