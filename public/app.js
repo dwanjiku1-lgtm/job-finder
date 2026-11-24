@@ -12,7 +12,7 @@ function render() {
     const remoteOnly = document.getElementById('remote-filter').value === 'remote';
     const sortBy = document.getElementById('sort').value;
 
-    const list = alljobs
+    const list = allJobs
        .filter((j) => {
         if (remoteOnly && !j.isRemote) return false;
         if (!term) return true;
@@ -45,7 +45,7 @@ for (const job of list) {
     <div class="employer">${escapeHtml(job.employer)}</div>
     <div class="meta">${escapeHtml(job.location)} . ${escapeHtml(dateStr)}</div>
     <p class="summary">${escapeHtml(job.summary)}</p>
-    ${job.applylink ? `<a href="${escapeAttr(job.applyLink)}" target="_blank" rel="noopener noreferrer">Apply</a>` : ''}`;
+    ${job.applyLink ? `<a href="${escapeAttr(job.applyLink)}" target="_blank" rel="noopener noreferrer">Apply</a>` : ''}`;
     gridEl.appendChild(card);
 
 }
@@ -70,31 +70,32 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const query = document.getElementById('query').value.trim();
     const country = document.getElementById('country').value.trim() || 'us' ;
-    setMsg('Searchung Jsearch...', 'info');
+    setMsg('Searching Jsearch...', 'info');
 
     try {
-        const res = await fetch(`/api/jobs?query={encodeURIComponent(query)}&country=&{encodeURIComponent(country)}`);
+        const res = await fetch('/api/jobs?query=' + encodeURIComponent(query) + '&country=' + encodeURIComponent(country));
         const data = await res.json();
         if (data.servedBy) {
             document.getElementById('server-label').textContent = `Served by: ${data.servedBy}`;
         }
 
         if (!res.ok) {
-            alljobs = [];
+            allJobs = [];
             render();
             setMsg(data.error || 'Error fetching jobs.', 'error');
             return;
         }
 
-        alljobs = data.jobs || [];
+        allJobs = data.jobs || [];
         render();
         setMsg(
             data.fromCache
             ? 'Loaded from cache (no extra API credit used).'
-            : `Found ${alljobs.jobs.length} jobs.`,
+            : `Found ${allJobs.length} jobs.`,
             'info'
         );
-    } catch {
+    } catch (err) {
+        console.error('Frontend error:', err);
         setMsg('Network error contacting server.', 'error');
     }
 });

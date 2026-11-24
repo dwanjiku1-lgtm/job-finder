@@ -28,16 +28,21 @@ app.get('/api/jobs', async (req, res) => {
      const cacheKey = `${query.toLowerCase()}::${country}`;
      const cached = cache.get(cacheKey);
      if (cached && cached.expiresAt > Date.now()) {
-        return res.json({ jobs:cached.jobs, fromCache: true, serveBy: HOSTNAME });
+        return res.json({ jobs:cached.jobs, fromCache: true, servedBy: HOSTNAME });
     }
-     const url = `https://jsearch.p.rapidapi.com/search-v2?query=${encodeURIComponent(query)}&country=${encodeURIComponent(country)}&num_pages=1&date_posted=all`;
-     try {
+    try {
+     const url =
+          'https://jsearch.p.rapidapi.com/search-v2?query=' + encodeURIComponent(query) +
+          '&country=' + encodeURIComponent(country) +
+          '&num_pages=1&date_posted=all';
+        console.log('NEW CODE v3 - Requesting URL:', url);
+     
         const response = await fetch(url, {
             headers: {
                 'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
                 'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
             },
-            signal: AbortSignal.timeout(7000),
+            signal: AbortSignal.timeout(20000),
         });
 
         const data = await response.json().catch(() => ({}));
