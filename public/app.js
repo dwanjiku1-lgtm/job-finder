@@ -1,3 +1,5 @@
+const { forwardRef } = require("react");
+
 let allJobs = [];
 const msgEl = document.getElementById('msg');
 const gridEl = document.getElementById('grid');
